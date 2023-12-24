@@ -10,17 +10,17 @@ namespace SocialNetwork
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Добро пожаловать в социальную сеть.");
+            //Console.WriteLine("Добро пожаловать в социальную сеть.");
 
-            while (true)
-            {
-                Console.WriteLine("Войти в профиль (нажмите 1)");
-                Console.WriteLine("Зарегистрироваться (нажмите 2)");
+            //while (true)
+            //{
+            //    Console.WriteLine("Войти в профиль (нажмите 1)");
+            //    Console.WriteLine("Зарегистрироваться (нажмите 2)");
 
-                switch (Console.ReadLine())
-                {
-                    case "1":
-                        {
+            //    switch (Console.ReadLine())
+            //    {
+            //        case "1":
+            //            {
                             var authenticationData = new UserAuthenticationData();
 
                             Console.WriteLine("Введите почтовый адрес:");
@@ -112,8 +112,8 @@ namespace SocialNetwork
                             break;
                         }
 
-                    case "2":
-                        {
+                    //case "2":
+                    //    {
                             var userRegistrationData = new UserRegistrationData();
 
                             Console.WriteLine("Для создания нового профиля введите ваше имя:");

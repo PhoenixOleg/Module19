@@ -18,8 +18,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="PLL\Views\" />
-  </ItemGroup>
-
 </Project>
