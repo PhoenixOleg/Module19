@@ -87,6 +87,11 @@ namespace SocialNetwork
 
                                                 break;
                                             }
+                                        case "4":
+                                            {
+                                                Console.Write("Введите сообщение:");
+                                                break;
+                                            }
                                     }
                                 }
 
