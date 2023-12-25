@@ -1,4 +1,5 @@
-﻿using SocialNetwork.BLL.Models;
+﻿using SocialNetwork.BLL.Exceptions;
+using SocialNetwork.BLL.Models;
 using SocialNetwork.DAL.Entities;
 using SocialNetwork.DAL.Repositories;
 using System;
@@ -14,8 +15,15 @@ namespace SocialNetwork.BLL.Services
         UserRepository userRepository;
         MessageRepository messageRepository;
 
+        public MessageService()
+        {
+            userRepository = new UserRepository();
+            messageRepository = new MessageRepository();
+        }
+
         public void SendMessage(MessageSendingData messageSendingData)
         {
+
             if (string.IsNullOrEmpty(messageSendingData.Message))
                 throw new ArgumentNullException();
 
@@ -25,7 +33,7 @@ namespace SocialNetwork.BLL.Services
             UserEntity recipientUserEntity = userRepository.FindByEmail(messageSendingData.RecipientEmail);
 
             if (recipientUserEntity == null)
-                throw new ArgumentException();
+                throw new UserNotFoundException();
 
 
             var messageEntity = new MessageEntity()

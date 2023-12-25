@@ -1,5 +1,7 @@
-﻿using SocialNetwork.BLL.Models;
+﻿using SocialNetwork.BLL.Exceptions;
+using SocialNetwork.BLL.Models;
 using SocialNetwork.BLL.Services;
+using SocialNetwork.PLL.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,33 @@ namespace SocialNetwork.PLL.Views
             messageSendingData.Message = Console.ReadLine();
 
             messageSendingData.IdSender = user.Id;
+
+            try
+            {
+                messageService.SendMessage(messageSendingData);
+
+                SuccessMessage.Show("Сообщение успешно отправлено пользователю с Email " + messageSendingData.RecipientEmail);
+            }
+
+            catch (ArgumentNullException)
+            {
+                AlertMessage.Show("Сообщение не может быть пустым!");
+            }
+
+            catch (ArgumentOutOfRangeException)
+            {
+                AlertMessage.Show("Сообщение не должно превышать 5000 символов!");
+            }
+
+            catch (UserNotFoundException)
+            {
+                AlertMessage.Show("Пользователь c eMail " + messageSendingData.RecipientEmail + " не найден!");
+            }
+
+            catch (Exception ex)
+            {
+                AlertMessage.Show("Произошла ошибка при отправке сообщения " + Environment.NewLine + ex.Message + ".");
+            }
         }
     }
 }
