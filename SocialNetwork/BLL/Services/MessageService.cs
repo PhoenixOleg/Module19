@@ -21,15 +21,20 @@ namespace SocialNetwork.BLL.Services
             if (messageSendingData.Message.Length > 5000)
                 throw new ArgumentOutOfRangeException();
 
-            if (userRepository.FindByEmail(messageSendingData.RecipientEmail) != null)
+            UserEntity recipientUserEntity = userRepository.FindByEmail(messageSendingData.RecipientEmail);
+
+            if (recipientUserEntity == null)
                 throw new ArgumentException();
 
-            UserEntity = userRepository.
+
             var messageEntity = new MessageEntity()
             {
                 sender_id = messageSendingData.IdSender,
-                recipient_id = messageSendingData.
+                recipient_id = recipientUserEntity.id,
+                content = messageSendingData.Message
             };
+
+
         }
     }
 }
