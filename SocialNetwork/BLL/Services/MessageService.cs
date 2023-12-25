@@ -12,6 +12,7 @@ namespace SocialNetwork.BLL.Services
     public class MessageService
     {
         UserRepository userRepository;
+        MessageRepository messageRepository;
 
         public void SendMessage(MessageSendingData messageSendingData)
         {
@@ -34,7 +35,8 @@ namespace SocialNetwork.BLL.Services
                 content = messageSendingData.Message
             };
 
-
+            if (messageRepository.Create(messageEntity) == 0)
+                throw new Exception();
         }
     }
 }

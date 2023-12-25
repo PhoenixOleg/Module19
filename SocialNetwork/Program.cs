@@ -20,7 +20,7 @@ namespace SocialNetwork
         static void Main(string[] args)
         {
             userService = new UserService();
-            //messageService = new MessageService();
+            messageService = new MessageService();
 
             mainView = new MainView();
             registrationView = new RegistrationView(userService);
