@@ -25,10 +25,10 @@ namespace SocialNetwork.PLL.Views
         {
             var messageSendingData = new MessageSendingData();
 
-            Console.Write("Введите Email получателя сообщения");
+            Console.Write("Введите Email получателя сообщения: ");
             messageSendingData.RecipientEmail = Console.ReadLine();
 
-            Console.Write("Введите сообщение (не более 5000 символов");
+            Console.Write("Введите сообщение (не более 5000 символов: ");
             messageSendingData.Message = Console.ReadLine();
 
             messageSendingData.IdSender = user.Id;
