@@ -1,13 +1,11 @@
-﻿using SocialNetwork.BLL.Exceptions;
-using SocialNetwork.BLL.Models;
-using SocialNetwork.BLL.Services;
+﻿using SocialNetwork.BLL.Services;
 using SocialNetwork.PLL.Views;
 
 namespace SocialNetwork
 {
     class Program
     {
-        //static MessageService messageService;
+        static MessageService messageService;
         static UserService userService;
         public static MainView mainView;
         public static RegistrationView registrationView;
@@ -15,7 +13,7 @@ namespace SocialNetwork
         public static UserMenuView userMenuView;
         public static UserInfoView userInfoView;
         public static UserDataUpdateView userDataUpdateView;
-        //public static MessageSendingView messageSendingView;
+        public static MessageSendingView messageSendingView;
         //public static UserIncomingMessageView userIncomingMessageView;
         //public static UserOutcomingMessageView userOutcomingMessageView;
 
@@ -30,7 +28,7 @@ namespace SocialNetwork
             userMenuView = new UserMenuView(userService);
             userInfoView = new UserInfoView();
             userDataUpdateView = new UserDataUpdateView(userService);
-            //messageSendingView = new MessageSendingView(messageService, userService);
+            messageSendingView = new MessageSendingView(messageService, userService);
             //userIncomingMessageView = new UserIncomingMessageView();
             //userOutcomingMessageView = new UserOutcomingMessageView();
 
