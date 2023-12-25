@@ -45,7 +45,7 @@ namespace SocialNetwork.PLL.Views
 
                     case "4":
                         {
-                            //Program.messageSendingView.Show(user);
+                            Program.messageSendingView.Show(user);
                             break;
                         }
 

@@ -1,4 +1,5 @@
-﻿using SocialNetwork.BLL.Services;
+﻿using SocialNetwork.BLL.Models;
+using SocialNetwork.BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,17 @@ namespace SocialNetwork.PLL.Views
             this.userService = userService; 
         }
 
-        public void Show()
-        { 
-        
+        public void Show(User user)
+        {
+            var messageSendingData = new MessageSendingData();
+
+            Console.Write("Введите Email получателя сообщения");
+            messageSendingData.RecipientEmail = Console.ReadLine();
+
+            Console.Write("Введите сообщение (не более 5000 символов");
+            messageSendingData.Message = Console.ReadLine();
+
+            messageSendingData.IdSender = user.Id;
         }
     }
 }
