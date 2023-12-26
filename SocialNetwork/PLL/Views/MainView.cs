@@ -11,6 +11,7 @@ namespace SocialNetwork.PLL.Views
         {
             Console.WriteLine("Войти в профиль (нажмите 1)");
             Console.WriteLine("Зарегистрироваться (нажмите 2)");
+            Console.WriteLine("Завершить работу (нажмите 3)");
 
             switch (Console.ReadLine())
             {
@@ -23,6 +24,12 @@ namespace SocialNetwork.PLL.Views
                 case "2":
                     {
                         Program.registrationView.Show();
+                        break;
+                    }
+
+                case "3":
+                    {
+                        Environment.Exit(0);
                         break;
                     }
             }
