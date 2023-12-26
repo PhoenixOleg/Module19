@@ -15,7 +15,7 @@ namespace SocialNetwork
         public static UserDataUpdateView userDataUpdateView;
         public static MessageSendingView messageSendingView;
         public static UserIncomingMessageView userIncomingMessageView;
-        //public static UserOutcomingMessageView userOutcomingMessageView;
+        public static UserOutcomingMessageView userOutcomingMessageView;
 
         static void Main(string[] args)
         {
@@ -30,7 +30,7 @@ namespace SocialNetwork
             userDataUpdateView = new UserDataUpdateView(userService);
             messageSendingView = new MessageSendingView(messageService, userService);
             userIncomingMessageView = new UserIncomingMessageView();
-            //userOutcomingMessageView = new UserOutcomingMessageView();
+            userOutcomingMessageView = new UserOutcomingMessageView();
 
             while (true)
             {

@@ -92,6 +92,7 @@ namespace SocialNetwork.BLL.Services
         private User ConstructUserModel(UserEntity userEntity)
         {
             var incomingMessages = messageService.GetIncomingMessagesByUserId(userEntity.id);
+            var outgoingMessages = messageService.GetOutcomingMessagesByUserId(userEntity.id);
 
             return new User(userEntity.id,
                           userEntity.firstname,
@@ -101,7 +102,9 @@ namespace SocialNetwork.BLL.Services
                           userEntity.photo,
                           userEntity.favorite_movie,
                           userEntity.favorite_book,
-                          incomingMessages);
+                          incomingMessages,
+                          outgoingMessages
+                          );
         }
     }
 }
