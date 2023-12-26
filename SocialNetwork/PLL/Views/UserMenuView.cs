@@ -50,6 +50,7 @@ namespace SocialNetwork.PLL.Views
 
                     case "3":
                         {
+                            Program.userAddFriendView.Show(user);
                             break;
                         }
 
