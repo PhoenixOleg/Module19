@@ -2,6 +2,9 @@
 using SocialNetwork.BLL.Models;
 using SocialNetwork.BLL.Services;
 using SocialNetwork.PLL.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace SocialNetwork.PLL.Views
 {
@@ -45,5 +48,4 @@ namespace SocialNetwork.PLL.Views
 
         }
     }
-
 }

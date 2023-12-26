@@ -1,10 +1,8 @@
 ﻿using SocialNetwork.BLL.Models;
-using SocialNetwork.PLL.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SocialNetwork.PLL.Views
 {
@@ -12,16 +10,18 @@ namespace SocialNetwork.PLL.Views
     {
         public void Show(IEnumerable<Message> outcomingMessages)
         {
+            Console.WriteLine("Исходящие сообщения");
+
             if (outcomingMessages.Count() == 0)
             {
-                SuccessMessage.Show("Исходящих сообщений нет");
+                Console.WriteLine("Исходящих сообщений нет");
+                return;
             }
 
-            SuccessMessage.Show("Ваши исходящие сообщения:");
-            foreach (var message in outcomingMessages)
+            outcomingMessages.ToList().ForEach(message =>
             {
-                Console.WriteLine("Отпрвлено сообщение:\n Кому " + message.RecipientEmail + "\n Текст сообщения:\n\t" + message.Content);
-            }
+                Console.WriteLine("Кому: {0}. Текст сообщения: {1}", message.RecipientEmail, message.Content);
+            });
         }
     }
 }

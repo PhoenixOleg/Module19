@@ -4,61 +4,56 @@ using SocialNetwork.BLL.Services;
 using SocialNetwork.PLL.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SocialNetwork.PLL.Views
 {
     public class MessageSendingView
     {
-        MessageService messageService;
         UserService userService;
-
+        MessageService messageService;
         public MessageSendingView(MessageService messageService, UserService userService)
         {
             this.messageService = messageService;
-            this.userService = userService; 
+            this.userService = userService;
         }
 
         public void Show(User user)
         {
             var messageSendingData = new MessageSendingData();
 
-            Console.Write("Введите Email получателя сообщения: ");
+            Console.Write("Введите почтовый адрес получателя: ");
             messageSendingData.RecipientEmail = Console.ReadLine();
 
-            Console.Write("Введите сообщение (не более 5000 символов: ");
-            messageSendingData.Message = Console.ReadLine();
+            Console.WriteLine("Введите сообщение (не больше 5000 символов): ");
+            messageSendingData.Content = Console.ReadLine();
 
-            messageSendingData.IdSender = user.Id;
+            messageSendingData.SenderId = user.Id;
 
             try
             {
                 messageService.SendMessage(messageSendingData);
 
-                SuccessMessage.Show("Сообщение успешно отправлено пользователю с Email " + messageSendingData.RecipientEmail);
-            }
+                SuccessMessage.Show("Сообщение успешно отправлено!");
 
-            catch (ArgumentNullException)
-            {
-                AlertMessage.Show("Сообщение не может быть пустым!");
-            }
-
-            catch (ArgumentOutOfRangeException)
-            {
-                AlertMessage.Show("Сообщение не должно превышать 5000 символов!");
+                user = userService.FindById(user.Id);
             }
 
             catch (UserNotFoundException)
             {
-                AlertMessage.Show("Пользователь c Email " + messageSendingData.RecipientEmail + " не найден!");
+                AlertMessage.Show("Пользователь не найден!");
             }
 
-            catch (Exception ex)
+            catch (ArgumentNullException)
             {
-                AlertMessage.Show("Произошла ошибка при отправке сообщения " + Environment.NewLine + ex.Message + ".");
+                AlertMessage.Show("Введите корректное значение!");
             }
+
+            catch (Exception)
+            {
+                AlertMessage.Show("Произошла ошибка при отправке сообщения!");
+            }
+
         }
     }
 }

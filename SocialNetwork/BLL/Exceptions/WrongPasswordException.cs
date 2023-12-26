@@ -1,4 +1,8 @@
-﻿namespace SocialNetwork.BLL.Exceptions
+﻿using System;
+
+namespace SocialNetwork.BLL.Exceptions
 {
-    public class WrongPasswordException : Exception { }
+    public class WrongPasswordException : Exception
+    {
+    }
 }

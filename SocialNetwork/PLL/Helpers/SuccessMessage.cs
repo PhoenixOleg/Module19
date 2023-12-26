@@ -1,4 +1,8 @@
-﻿namespace SocialNetwork.PLL.Helpers
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SocialNetwork.PLL.Helpers
 {
     public static class SuccessMessage
     {

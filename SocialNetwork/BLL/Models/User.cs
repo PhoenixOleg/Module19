@@ -1,4 +1,6 @@
-﻿namespace SocialNetwork.BLL.Models
+﻿using System.Collections.Generic;
+
+namespace SocialNetwork.BLL.Models
 {
     public class User
     {
@@ -24,7 +26,9 @@
             string favoriteMovie,
             string favoriteBook,
             IEnumerable<Message> incomingMessages,
-            IEnumerable<Message> outgoingMessages)
+            IEnumerable<Message> outgoingMessages
+	)
+
         {
             this.Id = id;
             this.FirstName = firstName;

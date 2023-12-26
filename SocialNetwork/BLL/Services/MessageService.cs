@@ -6,15 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SocialNetwork.BLL.Services
 {
     public class MessageService
     {
-        UserRepository userRepository;
-        MessageRepository messageRepository;
-
+        IMessageRepository messageRepository;
+        IUserRepository userRepository;
         public MessageService()
         {
             userRepository = new UserRepository();
@@ -53,27 +51,23 @@ namespace SocialNetwork.BLL.Services
 
         public void SendMessage(MessageSendingData messageSendingData)
         {
-
-            if (string.IsNullOrEmpty(messageSendingData.Message))
+            if (String.IsNullOrEmpty(messageSendingData.Content))
                 throw new ArgumentNullException();
 
-            if (messageSendingData.Message.Length > 5000)
+            if (messageSendingData.Content.Length > 5000)
                 throw new ArgumentOutOfRangeException();
 
-            UserEntity recipientUserEntity = userRepository.FindByEmail(messageSendingData.RecipientEmail);
-
-            if (recipientUserEntity == null)
-                throw new UserNotFoundException();
-
+            var findUserEntity = this.userRepository.FindByEmail(messageSendingData.RecipientEmail);
+            if (findUserEntity is null) throw new UserNotFoundException();
 
             var messageEntity = new MessageEntity()
             {
-                sender_id = messageSendingData.IdSender,
-                recipient_id = recipientUserEntity.id,
-                content = messageSendingData.Message
+                content = messageSendingData.Content,
+                sender_id = messageSendingData.SenderId,
+                recipient_id = findUserEntity.id
             };
 
-            if (messageRepository.Create(messageEntity) == 0)
+            if (this.messageRepository.Create(messageEntity) == 0)
                 throw new Exception();
         }
     }

@@ -1,4 +1,9 @@
-﻿namespace SocialNetwork.PLL.Views
+﻿using SocialNetwork.BLL.Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SocialNetwork.PLL.Views
 {
     public class MainView
     {

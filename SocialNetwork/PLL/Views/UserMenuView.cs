@@ -1,5 +1,9 @@
 ﻿using SocialNetwork.BLL.Models;
 using SocialNetwork.BLL.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace SocialNetwork.PLL.Views
 {
@@ -37,6 +41,7 @@ namespace SocialNetwork.PLL.Views
                             Program.userInfoView.Show(user);
                             break;
                         }
+
                     case "2":
                         {
                             Program.userDataUpdateView.Show(user);
@@ -62,8 +67,6 @@ namespace SocialNetwork.PLL.Views
                         }
                 }
             }
-
         }
     }
-
 }

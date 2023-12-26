@@ -1,6 +1,8 @@
-﻿using System.Data;
+﻿using Dapper;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
-using Dapper;
+using System.Linq;
 
 namespace SocialNetwork.DAL.Repositories
 {

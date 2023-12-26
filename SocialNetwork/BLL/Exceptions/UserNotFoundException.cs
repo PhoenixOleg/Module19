@@ -1,4 +1,8 @@
-﻿namespace SocialNetwork.BLL.Exceptions
+﻿using System;
+
+namespace SocialNetwork.BLL.Exceptions
 {
-    public class UserNotFoundException : Exception { }
+    public class UserNotFoundException : Exception
+    {
+    }
 }
