@@ -51,7 +51,7 @@ namespace SocialNetwork.PLL.Views
 
                     case "5":
                         {
-                            //Program.userIncomingMessageView.Show(user.IncomingMessages);
+                            Program.userIncomingMessageView.Show(user.IncomingMessages);
                             break;
                         }
 
