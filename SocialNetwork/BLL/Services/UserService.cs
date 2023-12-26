@@ -9,10 +9,12 @@ namespace SocialNetwork.BLL.Services
     public class UserService
     {
         IUserRepository userRepository;
+        MessageService messageService;
 
         public UserService() 
         {
             userRepository = new UserRepository();
+            messageService = new MessageService();
         }
         
         public void Register(UserRegistrationData userRegistrationData)
@@ -89,7 +91,7 @@ namespace SocialNetwork.BLL.Services
 
         private User ConstructUserModel(UserEntity userEntity)
         {
-            //var incomingMessages = MessageService.ReferenceEquals // @@@ Ушел смотреть скринкаст...
+            var incomingMessages = messageService.GetIncomingMessagesByUserId(userEntity.id);
 
             return new User(userEntity.id,
                           userEntity.firstname,

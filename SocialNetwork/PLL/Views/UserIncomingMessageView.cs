@@ -21,7 +21,7 @@ namespace SocialNetwork.PLL.Views
             SuccessMessage.Show("Ваши входящие сообщения:");
             foreach (var message in incomingMessages) 
             {
-                Console.WriteLine("Получено сообщение:\n От " + message.sender_id + "\n Текст сообщения:\n" + message.content);
+                Console.WriteLine("Получено сообщение:\n От " + message.SenderEmail + "\n Текст сообщения:\n" + message.Content);
             }
         }
     }

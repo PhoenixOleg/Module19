@@ -8,17 +8,18 @@ namespace SocialNetwork.BLL.Models
 {
     public class Message
     {
-        public int id { get; set; }
-        public string content { get; set; }
-        public int sender_id { get; set; }
-        public int recipient_id { get; set; }
+        public int Id { get; }
+        public string Content { get; }
+        public string SenderEmail { get; }
+        public string RecipientEmail { get; }
 
-        public Message (int id, string content, int sender_id, int recipient_id)
+        public Message(int id, string content, string senderEmail, string recipientEmail)
         {
-            this.id = id;
-            this.content = content;
-            this.sender_id = sender_id;
-            this.recipient_id = recipient_id;
+            this.Id = id;
+            this.Content = content;
+            this.SenderEmail = senderEmail;
+            this.RecipientEmail = recipientEmail;
         }
+
     }
 }
