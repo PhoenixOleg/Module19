@@ -15,7 +15,7 @@ namespace SocialNetwork.PLL.Views
         {
             while (true)
             {
-                //Console.WriteLine("Входящие сообщения: {0}", user.IncomingMessages.Count());
+                Console.WriteLine("Входящие сообщения: {0}", user.IncomingMessages.Count());
                 //Console.WriteLine("Исходящие сообщения: {0}", user.OutgoingMessages.Count());
 
                 Console.WriteLine("Просмотреть информацию о моём профиле (нажмите 1)");
