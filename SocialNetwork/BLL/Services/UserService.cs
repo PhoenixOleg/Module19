@@ -89,6 +89,8 @@ namespace SocialNetwork.BLL.Services
 
         private User ConstructUserModel(UserEntity userEntity)
         {
+            //var incomingMessages = MessageService.ReferenceEquals // @@@ Ушел смотреть скринкаст...
+
             return new User(userEntity.id,
                           userEntity.firstname,
                           userEntity.lastname,
@@ -96,7 +98,8 @@ namespace SocialNetwork.BLL.Services
                           userEntity.email,
                           userEntity.photo,
                           userEntity.favorite_movie,
-                          userEntity.favorite_book);
+                          userEntity.favorite_book,
+                          incomingMessages);
         }
     }
 }
