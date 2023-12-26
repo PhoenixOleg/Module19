@@ -52,7 +52,7 @@ namespace SocialNetwork.PLL.Views
 
             catch (UserNotFoundException)
             {
-                AlertMessage.Show("Пользователь c eMail " + messageSendingData.RecipientEmail + " не найден!");
+                AlertMessage.Show("Пользователь c Email " + messageSendingData.RecipientEmail + " не найден!");
             }
 
             catch (Exception ex)
