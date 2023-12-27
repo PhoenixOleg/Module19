@@ -7,6 +7,8 @@ namespace SocialNetwork.DAL.Repositories
     {
         public IEnumerable<FriendEntity> FindAllByUserId(int userId)
         {
+            //Так как нет подтверждения добавления в друзья, то имхо логичнее было бы сделать такой запрос - а вдруг нас добавили
+            //return Query<FriendEntity>(@"select * from friends where user_id = :user_id or friend_id = :user_id", new { user_id = userId });
             return Query<FriendEntity>(@"select * from friends where user_id = :user_id", new { user_id = userId });
         }
 

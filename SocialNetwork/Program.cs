@@ -12,6 +12,7 @@ namespace SocialNetwork
     {
         static MessageService messageService;
         static UserService userService;
+
         public static MainView mainView;
         public static RegistrationView registrationView;
         public static AuthenticationView authenticationView;
@@ -34,7 +35,7 @@ namespace SocialNetwork
             userMenuView = new UserMenuView(userService);
             userInfoView = new UserInfoView();
             userDataUpdateView = new UserDataUpdateView(userService);
-            userAddFriendView = new UserAddFriendView(userService);
+            userAddFriendView = new UserAddFriendView();
             messageSendingView = new MessageSendingView(messageService, userService);
             userIncomingMessageView = new UserIncomingMessageView();
             userOutcomingMessageView = new UserOutcomingMessageView();

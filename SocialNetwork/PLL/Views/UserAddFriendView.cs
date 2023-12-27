@@ -12,17 +12,17 @@ namespace SocialNetwork.PLL.Views
 {
     public class UserAddFriendView
     {
-        UserService userService;
+        FriendService friendService;
 
-        public UserAddFriendView(UserService userService) 
+        public UserAddFriendView() 
         { 
-            this.userService = userService;
+            friendService = new FriendService();
         }
         public void Show(User user)
         {
             var addFriendData = new AddFriendData();
 
-            Console.Write("Введите Email пользователя для добавления в друзья");
+            Console.Write("Введите Email пользователя для добавления в друзья: ");
             addFriendData.FriendEmail = Console.ReadLine();
 
             addFriendData.UserId = user.Id;
@@ -30,6 +30,10 @@ namespace SocialNetwork.PLL.Views
             try 
             {
                 //Вызвать либо новые методы userService, либо сделать friendService с наследованием от userService, чтобы не дублировать код поиска
+                //Остановил выбор на friendService
+                string friendFullName = friendService.AddFriend(addFriendData);
+
+                SuccessMessage.Show("Пользователь " + friendFullName + " успешно добавлен в друзья!");
             }
 
             catch (UserNotFoundException)
@@ -37,9 +41,19 @@ namespace SocialNetwork.PLL.Views
                 AlertMessage.Show("Пользователь не найден!");
             }
 
-            catch(Exception ex)
+            catch (AddYourselfFriendException)
             {
-                AlertMessage.Show("Произошла ошибка при при добавлении пользователя в друзья!" + Environment.NewLine + ex.Message);
+                AlertMessage.Show("Нельзя добавить в друзья самого себя!");
+            }
+
+            catch (FriendAlreadyExist)
+            {
+                AlertMessage.Show("Вы уже друзья!");
+            }
+
+            catch (Exception ex)
+            {
+                AlertMessage.Show("Произошла ошибка при добавлении пользователя в друзья!" + Environment.NewLine + ex.Message);
             }
         }
     }
