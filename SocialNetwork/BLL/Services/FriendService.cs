@@ -47,5 +47,27 @@ namespace SocialNetwork.BLL.Services
 
             return findUserEntity.FirstName + " " + findUserEntity.LastName;
         }
+
+        public string DeleteFriend(AddFriendData deleteFriendData)
+        {
+            var findUserEntity = new UserService().FindByEmail(deleteFriendData.FriendEmail);
+
+            if (findUserEntity == null)
+                throw new UserNotFoundException();
+
+            if (friendRepository.FindAllByUserId(findUserEntity.Id).Count() == 0)
+                throw new FriendNotFoundException();
+            
+            FriendEntity friendEntity = new FriendEntity()
+            {
+                user_id = deleteFriendData.UserId,
+                friend_id = findUserEntity.Id
+            };
+
+            if (friendRepository.Delete(findUserEntity.Id) == 0)
+                throw new Exception();
+
+            return findUserEntity.FirstName + " " + findUserEntity.LastName;
+        }
     }
 }
