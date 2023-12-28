@@ -120,8 +120,9 @@ namespace SocialNetwork.BLL.Services
             var friends = new List<FriendEntity>();
             friends = friendRepository.FindAllByUserId(_userId).ToList();
 
-            if (friends.Count() == 0)
-                throw new FriendNotFoundException();
+            //AddFriend_NotMustThrowAddYourselfFriendException показал, что этот код здесь ошибочен
+            //if (friends.Count() == 0)
+            //    throw new FriendNotFoundException();
 
             return friends;
         }

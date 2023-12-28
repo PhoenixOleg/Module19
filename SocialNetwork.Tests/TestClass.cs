@@ -10,10 +10,12 @@ namespace SocialNetwork.Tests
     public class TestClass
     {
         private UserService userService;
+        private FriendService friendService;
 
         public TestClass() 
         { 
             userService = new UserService();
+            friendService = new FriendService();
         }
 
         [Test]
@@ -50,6 +52,49 @@ namespace SocialNetwork.Tests
             };
 
             Assert.Throws<UserNotFoundException>(() => userService.Authenticate(userAuthenticationData));
+        }
+
+        [Test]
+        public void AddFriend_MustThrowUserNotFoundException()
+        {
+            FriendData friendData = new()
+            {
+                FriendEmail = "NotExistUser@gmail.com", //Целевой пользователь для дружбы
+                UserId = userService.FindByEmail("first@gmail.com").Id //ID пользователя, который добавляет к себе в друзья (вошедшего в систему)
+                //Или просто подставить ID нашего (не друга!) существующего пользователя из БД
+                //UserId = 1 
+            };
+
+            Assert.Throws<UserNotFoundException>(() => friendService.AddFriend(friendData));
+        }
+
+        [Test]
+        public void AddFriend_MustThrowAddYourselfFriendException()
+        {
+            FriendData friendData = new()
+            {
+                FriendEmail = "first@gmail.com", //Целевой пользователь для дружбы
+                UserId = userService.FindByEmail("first@gmail.com").Id //ID пользователя, который добавляет к себе в друзья (вошедшего в систему)
+                //Или просто подставить ID нашего (не друга!) существующего пользователя из БД
+                //UserId = 1 
+            };
+
+            Assert.Throws<AddYourselfFriendException>(() => friendService.AddFriend(friendData));
+        }
+
+        [Test]
+        public void AddFriend_NotMustThrowAddYourselfFriendException()
+        {
+            //Этот тест выявил ощибку в коде
+            FriendData friendData = new()
+            {
+                FriendEmail = "third@gmail.com", //Целевой пользователь для дружбы
+                UserId = userService.FindByEmail("first@gmail.com").Id //ID пользователя, который добавляет к себе в друзья (вошедшего в систему)
+                //Или просто подставить ID нашего (не друга!) существующего пользователя из БД
+                //UserId = 1 
+            };
+
+            Assert.DoesNotThrow(() => friendService.AddFriend(friendData));
         }
     }
 }
