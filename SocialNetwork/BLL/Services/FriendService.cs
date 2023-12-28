@@ -21,14 +21,14 @@ namespace SocialNetwork.BLL.Services
             friendRepository = new FriendRepository();
         }
 
-        public string AddFriend(AddFriendData addFriendData)
+        public string AddFriend(FriendData friendData)
         {
-            var findUserEntity = new UserService().FindByEmail(addFriendData.FriendEmail);
+            var findUserEntity = new UserService().FindByEmail(friendData.FriendEmail);
 
             if (findUserEntity == null ) 
                 throw new UserNotFoundException();
 
-            if (addFriendData.UserId == findUserEntity.Id)
+            if (friendData.UserId == findUserEntity.Id)
                 throw new AddYourselfFriendException();
 
             var allFriend = new FriendRepository().FindAllByUserId(findUserEntity.Id);
@@ -40,7 +40,7 @@ namespace SocialNetwork.BLL.Services
 
             FriendEntity friendEntity = new FriendEntity()
             {
-                 user_id = addFriendData.UserId,
+                 user_id = friendData.UserId,
                  friend_id = findUserEntity.Id
             };
 
@@ -50,11 +50,11 @@ namespace SocialNetwork.BLL.Services
             return findUserEntity.FirstName + " " + findUserEntity.LastName;
         }
 
-        public string DeleteFriend(AddFriendData addFriendData)
+        public string DeleteFriend(FriendData friendData)
         {
             //int recordID;
             //Ищем удаляемого из друзей пользователя по его Email
-            var findUserEntity = new UserService().FindByEmail(addFriendData.FriendEmail);
+            var findUserEntity = new UserService().FindByEmail(friendData.FriendEmail);
 
             //Не нашли
             if (findUserEntity == null) 
@@ -62,7 +62,7 @@ namespace SocialNetwork.BLL.Services
 
             //Ищем друзей по ID пользователя! Т. е. его друзей.
             //Получаем всех друзей пользователя, а затем селектим их по искомому ID уже друга
-            int recordId = GetFriends(null, addFriendData.UserId).ToList()
+            int recordId = GetFriends(null, friendData.UserId).ToList()
                 .Where(x => x.friend_id == findUserEntity.Id)
                 .Select(x => x.id)
                 .DefaultIfEmpty(-1) //Значение по умолчанию, если в наборе нет данных.

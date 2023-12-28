@@ -21,16 +21,16 @@ namespace SocialNetwork.PLL.Views
 
         public void Show(User user)
         {
-            var addFriendData = new AddFriendData();
+            var friendData = new FriendData();
 
             Console.Write("Введите Email пользователя для удаления из друзей: ");
-            addFriendData.FriendEmail = Console.ReadLine();
+            friendData.FriendEmail = Console.ReadLine();
 
-            addFriendData.UserId = user.Id;
+            friendData.UserId = user.Id;
 
             try
             {
-                string friendFullName = friendService.DeleteFriend(addFriendData);
+                string friendFullName = friendService.DeleteFriend(friendData);
 
                 SuccessMessage.Show("Пользователь " + friendFullName + " успешно удален из друзей");
             }

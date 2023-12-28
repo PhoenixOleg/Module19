@@ -20,18 +20,18 @@ namespace SocialNetwork.PLL.Views
         }
         public void Show(User user)
         {
-            var addFriendData = new AddFriendData();
+            var friendData = new FriendData();
 
             Console.Write("Введите Email пользователя для добавления в друзья: ");
-            addFriendData.FriendEmail = Console.ReadLine();
+            friendData.FriendEmail = Console.ReadLine();
 
-            addFriendData.UserId = user.Id;
+            friendData.UserId = user.Id;
 
             try 
             {
                 //Вызвать либо новые методы userService, либо сделать friendService с наследованием от userService, чтобы не дублировать код поиска
                 //Остановил выбор на friendService
-                string friendFullName = friendService.AddFriend(addFriendData);
+                string friendFullName = friendService.AddFriend(friendData);
 
                 SuccessMessage.Show("Пользователь " + friendFullName + " успешно добавлен в друзья!");
             }
