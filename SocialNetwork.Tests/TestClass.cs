@@ -12,8 +12,8 @@ namespace SocialNetwork.Tests
         private UserService userService;
         private FriendService friendService;
 
-        public TestClass() 
-        { 
+        public TestClass()
+        {
             userService = new UserService();
             friendService = new FriendService();
         }
@@ -27,7 +27,7 @@ namespace SocialNetwork.Tests
                 Password = "12345678"
             };
 
-            Assert.That (userService.Authenticate(userAuthenticationData) != null);
+            Assert.That(userService.Authenticate(userAuthenticationData) != null);
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace SocialNetwork.Tests
         [Test]
         public void AddFriend_NotMustThrowAddYourselfFriendException()
         {
-            //Этот тест выявил ощибку в коде
+            //Этот тест выявил ошибку в коде
             FriendData friendData = new()
             {
                 FriendEmail = "third@gmail.com", //Целевой пользователь для дружбы
@@ -95,6 +95,20 @@ namespace SocialNetwork.Tests
             };
 
             Assert.DoesNotThrow(() => friendService.AddFriend(friendData));
+        }
+
+        [Test]
+        public void AddFriend_MustThrowFriendAlreadyExist()
+        {
+            FriendData friendData = new()
+            {
+                FriendEmail = "second@gmail.com", //Целевой пользователь для дружбы
+                UserId = userService.FindByEmail("first@gmail.com").Id //ID пользователя, который добавляет к себе в друзья (вошедшего в систему)
+                //Или просто подставить ID нашего (не друга!) существующего пользователя из БД
+                //UserId = 1 
+            };
+
+            Assert.Throws<FriendAlreadyExist>(() => friendService.AddFriend(friendData));
         }
     }
 }

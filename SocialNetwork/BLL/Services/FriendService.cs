@@ -31,6 +31,7 @@ namespace SocialNetwork.BLL.Services
             if (friendData.UserId == findUserEntity.Id)
                 throw new AddYourselfFriendException();
 
+            //Здесь ошибка
             var allFriend = new FriendRepository().FindAllByUserId(findUserEntity.Id);
 
             if (allFriend.Count() > 0)
@@ -56,16 +57,10 @@ namespace SocialNetwork.BLL.Services
             var findUserEntity = new UserService().FindByEmail(friendData.FriendEmail);
 
             //Не нашли
-            if (findUserEntity == null) 
+            if (findUserEntity == null)
                 throw new UserNotFoundException();
 
-            //Ищем друзей по ID пользователя! Т. е. его друзей.
-            //Получаем всех друзей пользователя, а затем селектим их по искомому ID уже друга
-            int recordId = GetFriends(null, friendData.UserId).ToList()
-                .Where(x => x.friend_id == findUserEntity.Id)
-                .Select(x => x.id)
-                .DefaultIfEmpty(-1) //Значение по умолчанию, если в наборе нет данных.
-                .First();
+            int recordId = GetExistFriendID(friendData, findUserEntity);
 
             if (recordId == -1)
                 throw new FriendNotFoundException();
@@ -74,6 +69,18 @@ namespace SocialNetwork.BLL.Services
                 throw new Exception();
 
             return findUserEntity.FirstName + " " + findUserEntity.LastName;
+        }
+
+        private int GetExistFriendID(int userId, int frinedIdForSearch)
+        {
+            //Ищем друзей по ID пользователя! Т. е. его друзей.
+            //Получаем всех друзей пользователя, а затем селектим их по искомому ID уже друга
+            int recordId = GetFriends(null, userId).ToList()
+                .Where(x => x.friend_id == frinedIdForSearch)
+                .Select(x => x.id)
+                .DefaultIfEmpty(-1) //Значение по умолчанию, если в наборе нет данных.
+                .First();
+            return recordId;
         }
 
         public List<User> GetFriendsList(User user)
