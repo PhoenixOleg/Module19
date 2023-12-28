@@ -52,7 +52,6 @@ namespace SocialNetwork.BLL.Services
 
         public string DeleteFriend(FriendData friendData)
         {
-            //int recordID;
             //Ищем удаляемого из друзей пользователя по его Email
             var findUserEntity = new UserService().FindByEmail(friendData.FriendEmail);
 
@@ -77,7 +76,32 @@ namespace SocialNetwork.BLL.Services
             return findUserEntity.FirstName + " " + findUserEntity.LastName;
         }
 
-        public IEnumerable<FriendEntity> GetFriends(User user, int userId = -1)
+        public List<User> GetFriendsList(User user)
+        {
+            List<User> friendsList = new List<User>();
+            UserService userService = new();
+
+            var friends = GetFriends(user);
+
+            if (friends.Count() == 0)
+                throw new FriendNotFoundException();
+
+            try
+            {
+                foreach (var friend in friends)
+                {
+                    friendsList.Add(userService.FindById(friend.friend_id)); //Вместе с паролем пользователя =)
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return friendsList;
+        }
+        
+        private IEnumerable<FriendEntity> GetFriends(User user, int userId = -1)
         {
             int _userId;
             if (user == null && userId == -1)

@@ -48,7 +48,7 @@ namespace SocialNetwork.PLL.Views
 
             catch (Exception ex) 
             {
-                AlertMessage.Show("Произошла ошибка при добавлении пользователя в друзья!" + Environment.NewLine + ex.Message);
+                AlertMessage.Show("Произошла ошибка при удалении пользователя из друзей!" + Environment.NewLine + ex.Message);
             }
 
 

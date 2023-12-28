@@ -26,6 +26,7 @@ namespace SocialNetwork.PLL.Views
                 Console.WriteLine("Редактировать мой профиль (нажмите 2)");
                 Console.WriteLine("Добавить в друзья (нажмите 3)");
                 Console.WriteLine("Удалить пользователя из друзей (нажмите 31)");
+                Console.WriteLine("Просмотреть список друзей (нажмите 32)");
                 Console.WriteLine("Написать сообщение (нажмите 4)");
                 Console.WriteLine("Просмотреть входящие сообщения (нажмите 5)");
                 Console.WriteLine("Просмотреть исходящие сообщения (нажмите 6)");
@@ -58,6 +59,12 @@ namespace SocialNetwork.PLL.Views
                     case "31":
                         {
                             Program.userDeleteFriendView.Show(user);
+                            break;
+                        }
+
+                    case "32":
+                        {
+                            Program.userGetFriendsView.Show(user);
                             break;
                         }
 
