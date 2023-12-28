@@ -29,7 +29,7 @@ namespace SocialNetwork.Tests
         }
 
         [Test]
-        public void AuthenticateMust_MustThrowWrongPasswordException()
+        public void Authenticate_MustThrowWrongPasswordException()
         {
             UserAuthenticationData userAuthenticationData = new()
             {
@@ -38,7 +38,18 @@ namespace SocialNetwork.Tests
             };
 
             Assert.Throws<WrongPasswordException>(() => userService.Authenticate(userAuthenticationData));
+        }
 
+        [Test]
+        public void Authenticate_MustThrowUserNotFoundException()
+        {
+            UserAuthenticationData userAuthenticationData = new()
+            {
+                Email = "NotExistUser@gmail.com",
+                Password = "12345678"
+            };
+
+            Assert.Throws<UserNotFoundException>(() => userService.Authenticate(userAuthenticationData));
         }
     }
 }
