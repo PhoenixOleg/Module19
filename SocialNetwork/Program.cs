@@ -20,6 +20,7 @@ namespace SocialNetwork
         public static UserInfoView userInfoView;
         public static UserDataUpdateView userDataUpdateView;
         public static UserAddFriendView userAddFriendView;
+        public static UserDeleteFriendView userDeleteFriendView;
         public static MessageSendingView messageSendingView;
         public static UserIncomingMessageView userIncomingMessageView;
         public static UserOutcomingMessageView userOutcomingMessageView;
@@ -36,6 +37,7 @@ namespace SocialNetwork
             userInfoView = new UserInfoView();
             userDataUpdateView = new UserDataUpdateView(userService);
             userAddFriendView = new UserAddFriendView();
+            userDeleteFriendView = new UserDeleteFriendView();
             messageSendingView = new MessageSendingView(messageService, userService);
             userIncomingMessageView = new UserIncomingMessageView();
             userOutcomingMessageView = new UserOutcomingMessageView();

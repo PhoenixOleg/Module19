@@ -1,10 +1,12 @@
-﻿using SocialNetwork.BLL.Exceptions;
+﻿using Dapper;
+using SocialNetwork.BLL.Exceptions;
 using SocialNetwork.BLL.Models;
 using SocialNetwork.DAL.Entities;
 using SocialNetwork.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,20 +50,51 @@ namespace SocialNetwork.BLL.Services
             return findUserEntity.FirstName + " " + findUserEntity.LastName;
         }
 
-        public string DeleteFriend(string friendEmail)
+        public string DeleteFriend(AddFriendData addFriendData)
         {
-            var findUserEntity = new UserService().FindByEmail(friendEmail);
+            //int recordID;
+            //Ищем удаляемого из друзей пользователя по его Email
+            var findUserEntity = new UserService().FindByEmail(addFriendData.FriendEmail);
 
-            if (findUserEntity == null)
+            //Не нашли
+            if (findUserEntity == null) 
                 throw new UserNotFoundException();
 
-            if (friendRepository.FindAllByUserId(findUserEntity.Id).Count() == 0)
+            //Ищем друзей по ID пользователя! Т. е. его друзей.
+            //Получаем всех друзей пользователя, а затем селектим их по искомому ID уже друга
+            int recordId = GetFriends(null, addFriendData.UserId).ToList()
+                .Where(x => x.friend_id == findUserEntity.Id)
+                .Select(x => x.id)
+                .DefaultIfEmpty(-1) //Значение по умолчанию, если в наборе нет данных.
+                .First();
+
+            if (recordId == -1)
                 throw new FriendNotFoundException();
 
-            if (friendRepository.Delete(findUserEntity.Id) == 0)
+            if (friendRepository.Delete(recordId) == 0)
                 throw new Exception();
 
             return findUserEntity.FirstName + " " + findUserEntity.LastName;
+        }
+
+        public IEnumerable<FriendEntity> GetFriends(User user, int userId = -1)
+        {
+            int _userId;
+            if (user == null && userId == -1)
+                throw new ArgumentException();
+
+            if (user == null && userId != -1)
+                _userId = userId;
+            else
+                _userId = user.Id;
+
+            var friends = new List<FriendEntity>();
+            friends = friendRepository.FindAllByUserId(_userId).ToList();
+
+            if (friends.Count() == 0)
+                throw new FriendNotFoundException();
+
+            return friends;
         }
     }
 }
