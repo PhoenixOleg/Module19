@@ -21,20 +21,23 @@ namespace SocialNetwork.PLL.Views
             {
                 Console.WriteLine("Входящие сообщения: {0}", user.IncomingMessages.Count());
                 Console.WriteLine("Исходящие сообщения: {0}", user.OutgoingMessages.Count());
+                Console.WriteLine("У Вас {0} друзей\n", user.FriendsCount);
 
                 Console.WriteLine("Просмотреть информацию о моём профиле (нажмите 1)");
                 Console.WriteLine("Редактировать мой профиль (нажмите 2)");
-                Console.WriteLine("Добавить в друзья (нажмите 3)");
-                Console.WriteLine("Удалить пользователя из друзей (нажмите 31)");
-                Console.WriteLine("Просмотреть список друзей (нажмите 32)");
-                Console.WriteLine("Написать сообщение (нажмите 4)");
-                Console.WriteLine("Просмотреть входящие сообщения (нажмите 5)");
-                Console.WriteLine("Просмотреть исходящие сообщения (нажмите 6)");
-                Console.WriteLine("Выйти из профиля (нажмите 7)");
+
+                Console.WriteLine("Просмотреть список друзей (нажмите 3)");
+                Console.WriteLine("Добавить в друзья (нажмите 4)");
+                Console.WriteLine("Удалить пользователя из друзей (нажмите 5)");
+               
+                Console.WriteLine("Написать сообщение (нажмите 6)");
+                Console.WriteLine("Просмотреть входящие сообщения (нажмите 7)");
+                Console.WriteLine("Просмотреть исходящие сообщения (нажмите 8)");
+                Console.WriteLine("Выйти из профиля (нажмите 9)");
 
                 string keyValue = Console.ReadLine();
 
-                if (keyValue == "7") break;
+                if (keyValue == "9") break;
 
                 switch (keyValue)
                 {
@@ -52,35 +55,35 @@ namespace SocialNetwork.PLL.Views
 
                     case "3":
                         {
-                            Program.userAddFriendView.Show(user);
-                            break;
-                        }
-
-                    case "31":
-                        {
-                            Program.userDeleteFriendView.Show(user);
-                            break;
-                        }
-
-                    case "32":
-                        {
                             Program.userGetFriendsView.Show(user);
                             break;
                         }
 
                     case "4":
                         {
-                            Program.messageSendingView.Show(user);
+                            Program.userAddFriendView.Show(user);
                             break;
                         }
 
                     case "5":
                         {
-                            Program.userIncomingMessageView.Show(user.IncomingMessages);
+                            Program.userDeleteFriendView.Show(user);
                             break;
                         }
 
                     case "6":
+                        {
+                            Program.messageSendingView.Show(user);
+                            break;
+                        }
+
+                    case "7":
+                        {
+                            Program.userIncomingMessageView.Show(user.IncomingMessages);
+                            break;
+                        }
+
+                    case "8":
                         {
                             Program.userOutcomingMessageView.Show(user.OutgoingMessages);
                             break;

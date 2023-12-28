@@ -101,6 +101,11 @@ namespace SocialNetwork.BLL.Services
             return friendsList;
         }
         
+        public int FriendsCount(int userId)
+        {
+            return GetFriends(null, userId).Count();
+        }
+
         private IEnumerable<FriendEntity> GetFriends(User user, int userId = -1)
         {
             int _userId;
