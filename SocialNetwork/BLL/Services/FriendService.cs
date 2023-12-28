@@ -17,7 +17,7 @@ namespace SocialNetwork.BLL.Services
         IFriendRepository friendRepository;
 
         public FriendService() 
-        { 
+        {
             friendRepository = new FriendRepository();
         }
 
@@ -31,13 +31,17 @@ namespace SocialNetwork.BLL.Services
             if (friendData.UserId == findUserEntity.Id)
                 throw new AddYourselfFriendException();
 
-            //Здесь ошибка
-            var allFriend = new FriendRepository().FindAllByUserId(findUserEntity.Id);
+            //Здесь была ошибка
+            //var allFriend = new FriendRepository().FindAllByUserId(findUserEntity.Id);
 
-            if (allFriend.Count() > 0)
+            #region Проверка, существует ли пользователь с ID findUserEntity.Id в списке друзей
+            int recordId = GetExistFriendID(friendData.UserId, findUserEntity.Id);
+            
+            if (recordId != -1)
             { 
                 throw new FriendAlreadyExist();
             }
+            #endregion
 
             FriendEntity friendEntity = new FriendEntity()
             {
@@ -60,10 +64,12 @@ namespace SocialNetwork.BLL.Services
             if (findUserEntity == null)
                 throw new UserNotFoundException();
 
-            int recordId = GetExistFriendID(friendData, findUserEntity);
+            #region Проверка, существует ли пользователь с ID findUserEntity.Id в списке друзей
+            int recordId = GetExistFriendID(friendData.UserId, findUserEntity.Id);
 
             if (recordId == -1)
                 throw new FriendNotFoundException();
+            #endregion
 
             if (friendRepository.Delete(recordId) == 0)
                 throw new Exception();
